@@ -25,14 +25,16 @@ public class Main {
         myList.addLast(40);
         myList.addLast(100);
         myList.addFirst(5);
-        myList.print();
+        System.out.println(myList);
         myList.removeFirst();
-        myList.print();
+        System.out.println(myList);
         myList.removeLast();
-        myList.print();
+        System.out.println(myList);
         System.out.println(myList.contains(40));
         System.out.println(myList.indexOf(40));
         System.out.println(myList.size());
         System.out.println(Arrays.toString(myList.toArray()));
+        myList.reverse();
+        System.out.println(myList);
     }
 }

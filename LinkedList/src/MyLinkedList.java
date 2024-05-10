@@ -1,4 +1,5 @@
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public class MyLinkedList {
     private class Node {
@@ -94,19 +95,21 @@ public class MyLinkedList {
         return -1;
     }
 
-    public void print(){
+    @Override
+    public String toString(){
+        StringBuilder s = new StringBuilder();
         if(isEmpty())
             throw new NoSuchElementException();
         else {
             var current = first;
             while (current != null) {
-                System.out.print(current.value + "->");
+                s.append(current.value).append("->");
                 if(current.next==null)
                     break;
                 current = current.next;
             }
         }
-        System.out.println();
+        return s.toString();
     }
 
     public int size(){
@@ -122,5 +125,23 @@ public class MyLinkedList {
             current=current.next;
         }
         return array;
+    }
+
+    public void reverse(){
+        if(isEmpty())
+            return;
+        //previous|current|next
+        var previous = first;
+        var current = previous.next;
+        while(current!=null){
+            var next = current.next;
+            current.next=previous;
+            previous=current;
+            current=next;
+        }
+        last=first;
+        last.next=null;
+        first=previous;
+
     }
 }
