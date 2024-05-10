@@ -1,6 +1,3 @@
-import java.util.Arrays;
-import java.util.LinkedList;
-
 public class Main {
     public static void main(String[] args) {
         /*
@@ -17,19 +14,19 @@ public class Main {
         System.out.println(Arrays.toString(array));
          */
         MyLinkedList myList = new MyLinkedList();
-        myList.deleteFirst();
+        //myList.removeFirst();
         myList.addFirst(10);
-        myList.deleteLast();
-        myList.print();
+        myList.removeLast();
+        //myList.print();
         myList.addFirst(20);
         myList.addFirst(30);
         myList.addLast(40);
         myList.addLast(100);
         myList.addFirst(5);
         myList.print();
-        myList.deleteFirst();
+        myList.removeFirst();
         myList.print();
-        myList.deleteLast();
+        myList.removeLast();
         myList.print();
         System.out.println(myList.contains(40));
         System.out.println(myList.indexOf(40));
