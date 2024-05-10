@@ -10,6 +10,7 @@ public class MyLinkedList {
     }
     private Node first=null;
     private Node last=null;
+    private int size;
 
     private boolean isEmpty() {
         return first == null;
@@ -23,6 +24,7 @@ public class MyLinkedList {
             node.next = first;
             first=node;
         }
+        size++;
     }
 
     public void addLast(int item){
@@ -33,6 +35,7 @@ public class MyLinkedList {
             last.next = node;
             last = node;
         }
+        size++;
     }
 
     public void removeFirst(){
@@ -41,11 +44,13 @@ public class MyLinkedList {
         }
         if(first==last){
             first=last=null;
-            return;
         }
-        var second = first.next;
-        first.next=null;
-        first=second;
+        else {
+            var second = first.next;
+            first.next = null;
+            first = second;
+        }
+        size--;
     }
 
     public void removeLast(){
@@ -54,11 +59,13 @@ public class MyLinkedList {
         }
         if(first==last){
             first=last=null;
-            return;
         }
-        var previous = getPrevious(last);
-        last=previous;
-        last.next=null;
+        else {
+            var previous = getPrevious(last);
+            last = previous;
+            last.next = null;
+        }
+        size--;
     }
 
     private Node getPrevious(Node node) {
@@ -100,5 +107,20 @@ public class MyLinkedList {
             }
         }
         System.out.println();
+    }
+
+    public int size(){
+        return size;
+    }
+
+    public int[] toArray(){
+        int[] array = new int[size];
+        var current = first;
+        int i=0;
+        while(current!=null){
+            array[i++] = current.value;
+            current=current.next;
+        }
+        return array;
     }
 }

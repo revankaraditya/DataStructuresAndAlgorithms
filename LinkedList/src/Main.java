@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Main {
     public static void main(String[] args) {
         /*
@@ -30,5 +32,7 @@ public class Main {
         myList.print();
         System.out.println(myList.contains(40));
         System.out.println(myList.indexOf(40));
+        System.out.println(myList.size());
+        System.out.println(Arrays.toString(myList.toArray()));
     }
 }
