@@ -152,13 +152,59 @@ public class MyLinkedList {
             throw new IllegalArgumentException("Invalid K value");
         var p1=first;
         var p2=first;
-        for(int i=0;i<k;i++){
+        for(int i=0;i<k-1;i++)
             p1=p1.next;
-        }
-        while(p1!=null){
+        while(p1!=last){
             p1=p1.next;
             p2=p2.next;
         }
         return p2.value;
+    }
+
+    public void printMiddle() {
+        //a b
+        if(isEmpty())
+            throw new IllegalStateException();
+        var a=first;
+        var b=first;
+        while(b!=last && b.next!=last){
+            a=a.next;
+            b=b.next.next;
+        }
+        if(b==last)
+            System.out.println(a.value);
+        else
+            System.out.println(a.value +":"+a.next.value);
+        /* does not happen in one pass
+        if(isEmpty())
+            throw new NullPointerException("List empty");
+        var a = first;
+        var b = last;
+        while(true){
+            if(a==b) {
+                System.out.println(a.value);
+                break;
+            }
+            if(a.next==b){
+                System.out.println(a.value + ":" + b.value);
+                break;
+            }
+            a=a.next;
+            b=getPrevious(b);
+        }
+         */
+    }
+    public boolean hasLoop(){
+        if(isEmpty())
+            throw new IllegalStateException();
+        var a=first;
+        var b=first;
+        while(b!=last && b.next!=last){
+            a=a.next;
+            b=b.next.next;
+            if(a==b)
+                return true;
+        }
+        return false;
     }
 }
