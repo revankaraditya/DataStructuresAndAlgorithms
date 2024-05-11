@@ -144,4 +144,21 @@ public class MyLinkedList {
         first=previous;
 
     }
+
+    public int getKthFromTheEnd(int k){
+        //30 20 40
+        //p2 p1
+        if(k<=0 || k>size)
+            throw new IllegalArgumentException("Invalid K value");
+        var p1=first;
+        var p2=first;
+        for(int i=0;i<k;i++){
+            p1=p1.next;
+        }
+        while(p1!=null){
+            p1=p1.next;
+            p2=p2.next;
+        }
+        return p2.value;
+    }
 }

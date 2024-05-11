@@ -34,7 +34,8 @@ public class Main {
         System.out.println(myList.indexOf(40));
         System.out.println(myList.size());
         System.out.println(Arrays.toString(myList.toArray()));
-        myList.reverse();
-        System.out.println(myList);
+//        myList.reverse();
+//        System.out.println(myList);
+        System.out.println(myList.getKthFromTheEnd(3));
     }
 }
