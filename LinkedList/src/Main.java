@@ -45,5 +45,9 @@ public class Main {
         //myList.addLast(100);
         System.out.println(myList);
         myList.printMiddle();
+        System.out.println(myList);
+        myList.createLoop(4);
+        System.out.println(myList);
+        System.out.println(myList.hasLoop());
     }
 }

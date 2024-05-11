@@ -194,12 +194,24 @@ public class MyLinkedList {
         }
          */
     }
+
+    public void createLoop(int k){
+        var a=first;
+        for(int i=1;i<k;i++){
+            a=a.next;
+        }
+        var jointPoint = a;
+        while(a.next!=null)
+            a=a.next;
+        a.next=jointPoint;
+    }
+
     public boolean hasLoop(){
         if(isEmpty())
             throw new IllegalStateException();
         var a=first;
         var b=first;
-        while(b!=last && b.next!=last){
+        while(a!=b){
             a=a.next;
             b=b.next.next;
             if(a==b)
