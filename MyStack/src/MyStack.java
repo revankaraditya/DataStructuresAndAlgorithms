@@ -11,12 +11,12 @@ public class MyStack {
     }
     public void push(int item){
         if(isFull())
-            throw new IllegalArgumentException("Stack is Full");
+            throw new StackOverflowError("Stack is Full");
         stack[++top] = item;
     }
     public int pop(){
         if(isEmpty())
-            throw new NoSuchElementException("Stack is Empty");
+            throw new IllegalStateException("Stack is Empty");
         return stack[top--];
     }
     public int peek(){
