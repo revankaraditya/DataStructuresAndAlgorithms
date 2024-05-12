@@ -16,6 +16,7 @@ public class Main {
         reverse(queue);
         System.out.println(queue);
 
+        
         System.out.println("************************************************");
         ArrayQueue myqueue = new ArrayQueue(4);
         //myqueue.print();      //Empty
