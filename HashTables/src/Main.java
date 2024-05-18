@@ -1,7 +1,5 @@
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.sql.Array;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -49,6 +47,29 @@ public class Main {
         System.out.println(hashtable.get(13));
         hashtable.remove(8);
         System.out.println(hashtable.get(8));
+
+
+        //Exercise
+        //MostFrequent
+        Exercise e = new Exercise();
+        var res1 = e.mostFrequent(new int[]{1,2,3,2,2});
+        System.out.println(res1);
+        //countPairsWithDifference
+        int[] a = {1,7,5,9,2,12,3};
+        var res2 = e.countPairsWithDiff(a,2);
+        System.out.println(res2);
+        //TwoSum
+        int[] b = {2, 7, 11, 15};
+        int[] res3 = e.twoSum(b,26);
+        System.out.println(Arrays.toString(res3));
+        //Hashtable with linear probing
+        HashTableLinearProbing ht = new HashTableLinearProbing(4);
+        ht.put(10,"A");
+        ht.put(20,"B");
+        ht.put(30,"C");
+        System.out.println(ht.get(20));
+        ht.remove(10);
+        System.out.println(ht);
     }
     public static int hash(int number){
         return number%100;

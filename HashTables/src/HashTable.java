@@ -34,8 +34,7 @@ public class HashTable {
             entry.value = value;
             return;
         }
-        var bucket = getOrCreateBucket(key);
-        bucket.add(new Entry(key,value));
+        getOrCreateBucket(key).add(new Entry(key,value));
     }
 
 //    private boolean isBucketEmpty(int index) {
@@ -78,7 +77,7 @@ public class HashTable {
     }
 
     private Entry getEntry(int key){
-        LinkedList<Entry> bucket = getBucket(key);
+        var bucket = getBucket(key);
         if(bucket!=null) {
             for (var entry : bucket) {
                 if (entry.key == key)
@@ -89,9 +88,7 @@ public class HashTable {
     }
 
     private LinkedList<Entry> getBucket(int key) {
-        int index = hash(key);
-        var bucket = entries[index];
-        return bucket;
+        return entries[hash(key)];
     }
 
     private int hash(int key) {
@@ -101,8 +98,10 @@ public class HashTable {
     private LinkedList<Entry> getOrCreateBucket(int key){
         var index = hash(key);
         var bucket = entries[index];
-        if(bucket==null)
-            entries[index] = new LinkedList<>();
+        if(bucket==null) {
+                bucket = new LinkedList<>();
+                entries[index] = bucket;
+        }
         return bucket;
     }
 
