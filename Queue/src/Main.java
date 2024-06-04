@@ -74,6 +74,28 @@ public class Main {
         cpq.remove();
         System.out.println(cpq);
 
+        //Exercises
+        System.out.println("\n\nExercises");
+        Exercise e = new Exercise();
+        Queue<Integer> q = new ArrayDeque<>();
+        q.add(10);
+        q.add(20);
+        q.add(30);
+        q.add(40);
+        q.add(50);
+        e.reverseFirstK(q,3);
+        System.out.println(q);
+
+        //Queue from linkedList
+        System.out.println("\n\nQueue from linkedList");
+        QueueFromLinkedList q1 = new QueueFromLinkedList(3);
+        q1.enqueue(10);
+        q1.enqueue(20);
+        q1.enqueue(30);
+        System.out.println(q1);
+        q1.dequeue();
+        System.out.println(q1);
+
     }
     public static void reverse(Queue<Integer> queue){
         Stack<Integer> stack = new Stack<>();
