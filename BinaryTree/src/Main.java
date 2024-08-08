@@ -11,5 +11,11 @@ public class Main {
         bst.insert(18);
         bst.insert(19);
         System.out.println(bst.find(10));
+        System.out.println(factorial(5));
+    }
+    public static int factorial(int item){
+        if(item==0)
+            return 1;
+        return item*factorial(--item);
     }
 }
