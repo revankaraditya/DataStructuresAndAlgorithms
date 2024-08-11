@@ -29,5 +29,12 @@ public class Main {
         bst1.insert(8);
         bst1.insert(10);
         System.out.println(bst.equalsBST(bst1));
+
+        System.out.println(bst.isBinarySearchTree());
+        //bst.swapChild();
+        System.out.println(bst.isBinarySearchTree());
+        System.out.println(bst.nodesAtKDistance(2));
+
+        bst.bfs();
     }
 }

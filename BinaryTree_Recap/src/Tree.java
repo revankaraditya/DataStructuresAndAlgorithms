@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Tree {
     private class Node {
         private final int value;
@@ -142,19 +144,57 @@ public class Tree {
     }
 
     public boolean equalsBST(Tree tree){
+        if(tree==null)
+            return false;
         var p1 = root;
         var p2 = tree.root;
         return equalsBST(p1,p2);
     }
     private boolean equalsBST(Node n1,Node n2){
-        if(n1.value!= n2.value)
+        if(n1==null && n2==null)
+            return true;
+        if(n1!=null && n2!=null)
+            return n1.value==n2.value &&
+                    equalsBST(n1.leftNode,n2.leftNode) &&
+                    equalsBST(n1.rightNode,n2.rightNode);
+        return false;
+    }
+    public boolean isBinarySearchTree(){
+        return isBinarySearchTree(root,Integer.MIN_VALUE,Integer.MAX_VALUE);
+    }
+    private boolean isBinarySearchTree(Node root,int min,int max){
+        if(root==null)
+            return true;
+        if(root.value<min || root.value>max)
             return false;
-        if(n1.leftNode==null && n2.leftNode==null)
-            return true;
-        if(n1.rightNode==null && n2.rightNode==null)
-            return true;
-        equalsBST(n1.leftNode,n2.leftNode);
-        equalsBST(n1.rightNode,n2.rightNode);
-        return true;
+        return isBinarySearchTree(root.leftNode,min, root.value-1) && isBinarySearchTree(root.rightNode,root.value+1,max);
+    }
+    public void swapChild(){
+        var temp = root.leftNode;
+        root.leftNode=root.rightNode;
+        root.rightNode=temp;
+    }
+    public ArrayList<Integer> nodesAtKDistance(int distance){
+        var list = new ArrayList<Integer>();
+        nodesAtKDistance(root,distance,list);
+        return list;
+    }
+    private void nodesAtKDistance(Node root,int distance,ArrayList<Integer> list){
+        if(root==null)
+            return;
+        if(distance==0) {
+            list.add(root.value);
+            return;
+        }
+        nodesAtKDistance(root.leftNode,distance-1,list);
+        nodesAtKDistance(root.rightNode,distance-1,list);
+    }
+
+    public void bfs(){
+        var height = getHeight();
+        for(int i=0;i<=height;i++){
+            var list = nodesAtKDistance(i);
+            System.out.println(list);
+        }
     }
 }
