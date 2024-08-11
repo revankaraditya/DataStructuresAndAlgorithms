@@ -25,24 +25,53 @@ public class AVLTree {
         else
             root.rightChild = insert(root.rightChild,value);
 
-        root.height = updateHeight(root);
+        //root.height = updateHeight(root);
+        root.height = Math.max(height(root.leftChild),height(root.rightChild))+1;
 
         //balance Factor
-        int balanceFactor = (root.leftChild==null? -1 : root.leftChild.height) -
-                            (root.rightChild==null? -1 : root.rightChild.height);
-        if(balanceFactor<-1)
-            System.out.println(root + " Right heavy");
-        else if(balanceFactor>1)
-            System.out.println(root + " Left Heavy");
+//        int balanceFactor = (root.leftChild==null? -1 : root.leftChild.height) -
+//                            (root.rightChild==null? -1 : root.rightChild.height);
+//        if(balanceFactor<-1)
+//            System.out.println(root + " Right heavy");
+//        else if(balanceFactor>1)
+//            System.out.println(root + " Left Heavy");
+
+        balance(root);
 
         return root;
     }
-    private int updateHeight(AVLNode root){
-        if(root==null)
-            return -1;      //Height of an empty tree is -1
-        if(root.rightChild==null && root.leftChild==null){
-            return 0;
+
+    private void balance(AVLNode root){
+        if(isRightHeavy(root)) {
+            if(balanceFactor(root.rightChild)>0)
+                System.out.println("Right rotate " + root.rightChild.value);
+            System.out.println("Left Rotate " + root.value);
         }
-        return Math.max(updateHeight(root.leftChild), updateHeight(root.rightChild)) + 1;
+        else if(isLeftHeavy(root)){
+            if(balanceFactor(root.leftChild)>0)
+                System.out.println("Left Rotate " + root.rightChild.value);
+            System.out.println("Right Rotate " + root.value);
+        }
+    }
+
+//    private int updateHeight(AVLNode root){
+//        if(root==null)
+//            return -1;      //Height of an empty tree is -1
+//        if(root.rightChild==null && root.leftChild==null){
+//            return 0;
+//        }
+//        return Math.max(updateHeight(root.leftChild), updateHeight(root.rightChild)) + 1;
+//    }
+    private int height(AVLNode root){
+        return (root==null)?-1:root.height;
+    }
+    private boolean isLeftHeavy(AVLNode node){
+        return balanceFactor(node) > 1 ;
+    }
+    private boolean isRightHeavy(AVLNode node){
+        return balanceFactor(node) < -1 ;
+    }
+    private int balanceFactor(AVLNode node){
+        return node==null? 0 : height(node.leftChild) - height(node.rightChild);
     }
 }
