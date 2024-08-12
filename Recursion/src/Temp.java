@@ -43,4 +43,16 @@ public class Temp {
         }
         return true;
     }
+
+    public int fibonacci(int n){
+        if(n<2)
+            return n;
+        return fibonacci(n-1) + fibonacci(n-2);
+    }
+    public void printFibonacci(int n,int i){
+        if(i==n+1)
+            return;
+        System.out.println(fibonacci(i));
+        printFibonacci(n,i+1);
+    }
 }

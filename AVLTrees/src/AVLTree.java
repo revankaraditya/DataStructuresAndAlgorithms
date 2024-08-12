@@ -26,7 +26,7 @@ public class AVLTree {
             root.rightChild = insert(root.rightChild,value);
 
         //root.height = updateHeight(root);
-        root.height = Math.max(height(root.leftChild),height(root.rightChild))+1;
+        root.height = setHeight(root);
 
         //balance Factor
 //        int balanceFactor = (root.leftChild==null? -1 : root.leftChild.height) -
@@ -36,22 +36,23 @@ public class AVLTree {
 //        else if(balanceFactor>1)
 //            System.out.println(root + " Left Heavy");
 
-        balance(root);
+        root = balance(root);
 
         return root;
     }
 
-    private void balance(AVLNode root){
+    private AVLNode balance(AVLNode root){
         if(isRightHeavy(root)) {
             if(balanceFactor(root.rightChild)>0)
-                System.out.println("Right rotate " + root.rightChild.value);
-            System.out.println("Left Rotate " + root.value);
+                root.rightChild=rightRotate(root.rightChild);
+            return leftRotate(root);
         }
         else if(isLeftHeavy(root)){
-            if(balanceFactor(root.leftChild)>0)
-                System.out.println("Left Rotate " + root.rightChild.value);
-            System.out.println("Right Rotate " + root.value);
+            if(balanceFactor(root.leftChild)<0)
+                root.leftChild=leftRotate(root.leftChild);
+            return rightRotate(root);
         }
+        return root;
     }
 
 //    private int updateHeight(AVLNode root){
@@ -62,6 +63,29 @@ public class AVLTree {
 //        }
 //        return Math.max(updateHeight(root.leftChild), updateHeight(root.rightChild)) + 1;
 //    }
+
+    private AVLNode leftRotate(AVLNode root){
+        var newRoot = root.rightChild;
+        root.rightChild=newRoot.leftChild;
+        newRoot.leftChild = root;
+        root.height= setHeight(root);
+        newRoot.height=setHeight(newRoot);
+        return newRoot;
+    }
+    private AVLNode rightRotate(AVLNode root){
+        var newRoot = root.leftChild;
+        root.leftChild=newRoot.rightChild;
+        newRoot.rightChild = root;
+        root.height= setHeight(root);
+        newRoot.height=setHeight(newRoot);
+        return newRoot;
+    }
+
+    private int setHeight(AVLNode root) {
+        return Math.max(height(root.leftChild),
+                height(root.rightChild)) + 1;
+    }
+
     private int height(AVLNode root){
         return (root==null)?-1:root.height;
     }

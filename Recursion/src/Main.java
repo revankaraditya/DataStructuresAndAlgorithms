@@ -11,5 +11,10 @@ public class Main {
 
         System.out.println(temp.isPalindrome("naan"));
 
+        var result = temp.fibonacci(10);
+        System.out.println(result);
+
+        temp.printFibonacci(6,1);
+
     }
 }
