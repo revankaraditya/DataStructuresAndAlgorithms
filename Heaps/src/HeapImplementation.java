@@ -1,73 +1,102 @@
-import java.util.Arrays;
-
 public class HeapImplementation {
-    private int[] heap;
-    private int currentIndex = -1;
+    private int[] items = new int[10];
     private int size;
-    public HeapImplementation(int size){
-        this.size=size;
-        this.heap = new int[size];
-    }
     public void insert(int value){
-        if(++currentIndex<size){
-            heap[currentIndex] = value;
-            bubbleUp(currentIndex);
-        }
-        else{
-            System.out.println("Heap Capacity Full");
-        }
+        if(isFull())
+            throw new IllegalStateException();
+        items[size++] = value;
+        bubbleUp();
     }
-    public void remove(){
-        if(heap[0]==0){
-            System.out.println("Heap Empty");
-            return;
-        }
-        heap[0] = heap[currentIndex];
-        heap[currentIndex]=0;
-        currentIndex--;
-
-        bubbleDown(0);
+    public int remove(){
+        if(isEmpty())
+            throw new IllegalStateException();
+        var root = items[0];
+        bubbleDown();
+        return root;
     }
-    private void bubbleDown(int rootIndex){
-        int leftIndex = rootIndex*2 + 1;
-        int rightIndex = rootIndex*2 + 1;
 
-        int leftChild = heap[leftIndex];
-        int rightChild = heap[rightIndex];
-        int root = heap[rootIndex];
-
-        if(root>Math.max(leftChild,rightChild))
-            return;
-
-        if(root<leftChild){
-            swap(rootIndex,leftIndex);
-            bubbleDown(leftIndex);
-        }
-        else if(root<rightChild){
-            swap(rootIndex,rightIndex);
-            bubbleDown(rightIndex);
+    private void bubbleDown() {
+        var index = 0;
+        items[0] = items[--size];   //now my size points to the last element in the heap
+        while(index <=size && !isValidParent(index)){
+            swap(index,largerChildIndex(index));
+            index = largerChildIndex(index); //now the index becomes the index of the larger child
         }
     }
 
-    private void bubbleUp(int currentIndex) {
-        if(currentIndex==0)
-            return;
-        int parentIndex = currentIndex==1 || currentIndex==2?0:(currentIndex-1)/2;
-        if(heap[parentIndex] < heap[currentIndex]){
-            swap(parentIndex,currentIndex);
-            bubbleUp(parentIndex);
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    private int largerChildIndex(int index){
+        if(!hasLeftChild(index))
+            return index;
+        if(!hasRightChild(index))
+            return leftChildIndex(index);
+        return (leftChild(index)>rightChild(index))?leftChildIndex(index):rightChildIndex(index);
+    }
+    private boolean hasLeftChild(int index){
+        return leftChildIndex(index) <= size;
+    }
+    private boolean hasRightChild(int index){
+        return rightChildIndex(index) <= size;
+    }
+
+    private boolean isValidParent(int index) {
+        if(!hasLeftChild(index))
+            return true;
+        var isValid = items[index] >= leftChild(index);
+        if(hasRightChild(index))
+            isValid &= items[index] >= rightChild(index);
+        return isValid;
+    }
+
+    private int leftChildIndex(int index){
+        return index*2 + 1;
+    }
+    private int leftChild(int index){
+        return items[leftChildIndex(index)];
+    }
+    private int rightChildIndex(int index){
+        return index*2 + 1;
+    }
+    private int rightChild(int index){
+        return items[rightChildIndex(index)];
+    }
+
+
+    private boolean isFull() {
+        return size == items.length;
+    }
+
+    private void bubbleUp() {
+        var index = size-1;
+        while(index > 0 && items[index]>items[getParentIndex(index)]){
+            swap(index, getParentIndex(index));
+            index = getParentIndex(index);
         }
     }
-    private void swap(int a, int b){
-        int temp = heap[a];
-        heap[a] = heap[b];
-        heap[b] = temp;
+
+    private static int getParentIndex(int index) {
+        return (index - 1) / 2;
     }
+
+    private void swap(int first, int second){
+        int temp = items[first];
+        items[first] = items[second];
+        items[second] = temp;
+    }
+    private void swapInArray(int[] array, int first,int second){
+        int temp = array[first];
+        array[first] = array[second];
+        array[second] = temp;
+    }
+
     @Override
     public String toString(){
         var output = new StringBuilder();
-        for(int i=0;i<=currentIndex;i++)
-            output.append(heap[i]).append(", ");
+        for(int i=0;i<size;i++)
+            output.append(items[i]).append(", ");
         return output.toString();
     }
 
