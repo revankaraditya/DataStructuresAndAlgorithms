@@ -35,12 +35,12 @@ public class Tree {
                     return;
                 }
                 current = current.leftNode;
-            } else if (value > current.value) {
+            } else{
                 if (current.rightNode == null) {
                     current.rightNode = newNode;
                     return;
                 }
-                current = root.rightNode;
+                current = current.rightNode;
             }
         }
     }

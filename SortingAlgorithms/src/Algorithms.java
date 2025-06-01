@@ -46,7 +46,7 @@ public class Algorithms {
             var j= i-1;         //previous index of current
 
             //shift the element until right place is found
-            //previous item > current item
+            //previous item > current item3
             while(j >= 0 && array[j] > current){
                 array[j+1] = array[j];  //shift the item one place forward
                 j--;  //decrement the index by one place
@@ -111,8 +111,8 @@ public class Algorithms {
         }
         while(j<left.length)
             array[i++] = left[j++];
-        while(k<left.length)
-            array[i++] = left[k++];
+        while(k<right.length)
+            array[i++] = right[k++];
     }
     public void quickSort(int[] array){
         quickSort(array,0,array.length-1);
